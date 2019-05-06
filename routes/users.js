@@ -1,7 +1,8 @@
 const server = require("express").Router();
 const userDb = require("../data/helpers/usersModel");
+const restricted = require("../auth/restricted-middleware");
 
-server.get("/", async (req, res) => {
+server.get("/", restricted, async (req, res) => {
   try {
     const getUsers = await userDb.get();
     res.json(getUsers);
