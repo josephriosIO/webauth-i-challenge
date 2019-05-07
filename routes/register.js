@@ -6,7 +6,7 @@ const registerDb = require("../data/helpers/register_models");
 server.post("/", async (req, res) => {
   let user = req.body;
   if (!user.password) {
-    res.status(400).json({ msg: "please enter password" });
+    return res.status(400).json({ msg: "please enter password" });
   }
   try {
     const hash = await bcrypt.hash(user.password, 10);

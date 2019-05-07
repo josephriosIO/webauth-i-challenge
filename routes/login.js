@@ -12,7 +12,8 @@ server.post("/", async (req, res) => {
     }
     const user = await loginDb.findBy({ username }).first();
     if (user && (await bcrypt.compare(password, user.password))) {
-      res.json({ msg: `thank you for logining in ${username}` });
+      req.session.username = user.username;
+      res.json({ msg: `thank you for logging in ${username}` });
     } else {
       res.status(400).json({ msg: "invaild creds" });
     }
